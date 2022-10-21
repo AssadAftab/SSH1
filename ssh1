@@ -1,34 +1,36 @@
 import netmiko
 import getpass
+from netmiko import ConnectHandler
 
 MenuInfo ={
   'device_type':'',
-  'ip_Address':'192.168.1.1',
+  'host':'192.168.56.101',
   'username':'cisco',
-  'Password':'cisco',
-  'Secret':'class'
+  'password':'cisco',
+  'secret':'class'
+
 
 }
 
-print('**Device script**')
-MenuInfo["Password"] = getpass.getpass("Enter device Password")
-MenuInfo["Secret"] = getpass.getpass("Enter device Secret")
+print('**device script**')
+MenuInfo["password"] = getpass.getpass("Enter device Password")
+MenuInfo["secret"] = getpass.getpass("Enter device Secret")
 MenuType = input("Do you want to connect to SSH (A) or Do you want to connect to Telnet (B)")
 if MenuType == "A":
-    MenuInfo["Device_Type"] = "cisco_ios"
+    MenuInfo["device_type"] = "cisco_ios"
     session = netmiko.ConnectHandler(**MenuInfo)
     session.enable()
-    print("session enabled")
+    print("session has been enabled")
     commandOutput = session.send_command('show running-config')
     file = open("config.txt", "w")
     file.write(commandOutput)
     file.close()
-    print("File saved")
+    print ("File saved")
 elif MenuType == "B":
-    MenuInfo['Device_type'] = 'cisco_ios_telnet'
+    MenuInfo['device_type'] = 'cisco_ios_telnet'
     session = netmiko.ConnectHandler(**MenuInfo)
     session.enable()
     print(session.send_command('sh ip int br'))
-else:()
+else:
   
-    exit
+    exit()
