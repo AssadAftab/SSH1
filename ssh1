@@ -18,16 +18,17 @@ if MenuType == "A":
     MenuInfo["Device_Type"] = "cisco_ios"
     session = netmiko.ConnectHandler(**MenuInfo)
     session.enable()
+    print("session enabled")
     commandOutput = session.send_command('show running-config')
     file = open("config.txt", "w")
     file.write(commandOutput)
     file.close()
+    print("File saved")
 elif MenuType == "B":
     MenuInfo['Device_type'] = 'cisco_ios_telnet'
     session = netmiko.ConnectHandler(**MenuInfo)
     session.enable()
     print(session.send_command('sh ip int br'))
-else 
-  if result != 0:
-    print('--- Failure! entering config mode')
+else:()
+  
     exit
