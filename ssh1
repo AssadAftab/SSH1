@@ -4,9 +4,9 @@ import getpass
 MenuInfo ={
   'device_type':'',
   'ip_Address':'192.168.1.1',
-  'username':'CISCO123',
-  'Password':'cisco1234',
-  'Secret':'SSH',
+  'username':'cisco',
+  'Password':'',
+  'Secret':''
 
 }
 
@@ -18,15 +18,14 @@ if MenuType == "A":
     MenuInfo["Device_Type"] = "cisco_ios"
     session = netmiko.ConnectHandler(**MenuInfo)
     session.enable()
-    print((session.send_command('sh ippppp int br')))
+    commandOutput = session.send_command('show running-config')
+    file = open("config.txt", "w")
+    file.write(commandOutput)
+    file.close()
 elif MenuType == "B":
     MenuInfo['Device_type'] = 'cisco_ios_telnet'
     session = netmiko.ConnectHandler(**MenuInfo)
     session.enable()
     print(session.send_command('sh ip int br'))
-
-
-
-
 else:
     exit
