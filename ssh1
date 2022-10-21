@@ -5,8 +5,8 @@ MenuInfo ={
   'device_type':'',
   'ip_Address':'192.168.1.1',
   'username':'cisco',
-  'Password':'',
-  'Secret':''
+  'Password':'cisco',
+  'Secret':'class'
 
 }
 
@@ -27,5 +27,7 @@ elif MenuType == "B":
     session = netmiko.ConnectHandler(**MenuInfo)
     session.enable()
     print(session.send_command('sh ip int br'))
-else:
+else 
+  if result != 0:
+    print('--- Failure! entering config mode')
     exit
